@@ -1,0 +1,27 @@
+     <% if @book.errors.any? %>
+     <h2><%= @book.errors.count %>error prohibited this obj from being saved:</h2>
+     <table><% @book.errors.full_messages.each do |message| %></table>
+     <%= message %>
+     <% end %>
+     <% end %>
+     <%= render 'books/list', book: @book,user: @book.user%>
+   <div class='col-md-8 offset-md-1'>
+  		<h2>Book detail</h2>
+  		<table class='table'>
+  		<body>
+  		<tr>
+  	 <td>
+  	   <%= link_to user_path(@book.user.id) do %>
+  	   <%= attachment_image_tag @book.user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg", class:"mb-3" %><br>
+      <%= @book.user.name %></th></td>
+      <% end %>
+    <td><%= link_to @book.title %></td>
+    <td><%= @book.body %></td>
+    <% if current_user.id == @book.user.id %>
+    <td><%= link_to 'Edit', edit_book_path(@book.id), class:"btn btn-sm btn-success" %></td>
+    <td><%= link_to 'Destroy', book_path(@book.id), method: :delete, class:"btn btn-sm btn-danger" %></td>
+    <% end %>
+    </tr>
+    </body>
+    </table>
+   </div>
